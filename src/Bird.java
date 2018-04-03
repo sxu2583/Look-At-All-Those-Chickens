@@ -28,7 +28,7 @@ public class Bird extends Hawk_Dove_Functions {
 
     //Just a test
     public void tweet(){
-        System.out.println("Tweet");
+        System.out.println("BAAAAKAAAWWHH");
     }
 
 }

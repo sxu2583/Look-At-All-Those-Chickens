@@ -49,11 +49,6 @@ public class Hawk_Dove_Functions {
         return birds;
     }
 
-    //TODO: Setup the menu bars except the running ones and step
-    public static void menu(String[] args){
-        System.out.println("Here's where menu goes");
-    }
-
     //TODO: Make sure the two birds chosen are alive
     //TODO: Make sure the two birds are not the same
     public static Bird[] random_Pick(Bird[] birds, int size){
@@ -85,5 +80,24 @@ public class Hawk_Dove_Functions {
     }
 
     //TODO: Create check function to see if 2 alive birds are available otherwise throw done
+    //Just pass in an array of bird objects and it will check if there are more then 2 alive
+    public static boolean is_Alive(Bird[] birds){
+        return true;
+    }
 
+    //TODO: Setup the menu bars except the running ones and step
+    //TODO: Make sure that the prompt bar continues to show up
+    public static void menu(String[] args){
+        System.out.println("===============MENU=============");
+        System.out.println("1 ) Starting Stats");
+        System.out.println("2 ) Display Individuals and Points");
+        System.out.println("3 ) Display Sorted");
+        System.out.println("4 ) Have 1000 interactions");
+        System.out.println("5 ) Have 10000 interactions");
+        System.out.println("6 ) Have N interactions");
+        System.out.println("7 ) Step through interactions 'Stop' to return to menu");
+        System.out.println("8 ) Quit");
+        System.out.println("================================");
+        System.out.println(">");
+    }
 }

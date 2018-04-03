@@ -2,6 +2,8 @@
 @Author:Shihab Uddin
  */
 
+import java.awt.*;
+
 public class Simulation extends Hawk_Dove_Functions {
     public static void main(String[] args){
         //Check error cases for arguments
@@ -27,14 +29,12 @@ public class Simulation extends Hawk_Dove_Functions {
             System.out.println(simulation_pop[i].strategy + " " + simulation_pop[i].id_number);
         }
 
-
         //Choosing the birds has been set
         Bird[] interaction;
         interaction = random_Pick(simulation_pop, size);
         if (interaction[0].alive == 0 || interaction[1].alive == 0){
             interaction = random_Pick(simulation_pop, size);
         }
-
         System.out.println("--------------------------------------------------------");
         System.out.println("The Two Birds Chosen");
         System.out.println(interaction[0].strategy + " " + interaction[0].id_number);
@@ -42,5 +42,8 @@ public class Simulation extends Hawk_Dove_Functions {
 
 
         //Conduct the strategies
+
+        //Menu
+        menu(args);
     }
 }
