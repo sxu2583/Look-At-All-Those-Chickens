@@ -18,29 +18,29 @@ public class Simulation extends World {
         int loss = loss_default;
         if (args.length == 4){ loss = Integer.parseInt(args[3]); }
 
+        /*
         System.out.println("-------------------------------");
         System.out.println("Resource Amount " + resource);
         System.out.println("Hawk v Hawk Loss " + loss);
         System.out.println("-------------------------------");
+        */
 
         //Generate all the birds
         Bird[] simulation_pop = generate_population(size, hawk_percent);
+        /*
         for (int i =0; i < size; i++){
             System.out.println(simulation_pop[i].strategy + " " + simulation_pop[i].id_number);
         }
+        */
 
         //Choosing the birds has been set
-        Bird[] interaction;
-        interaction = random_Pick(simulation_pop, size);
-        if (interaction[0].alive == 0 || interaction[1].alive == 0){
-            interaction = random_Pick(simulation_pop, size);
-        }
+        Bird[] bird_pair;
+        bird_pair = random_Pick(simulation_pop, size);
+
         System.out.println("--------------------------------------------------------");
         System.out.println("The Two Birds Chosen");
-        System.out.println(interaction[0].strategy + " " + interaction[0].id_number);
-        System.out.println(interaction[1].strategy + " " + interaction[1].id_number);
-
-        //Conduct the strategies
+        System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive);
+        System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive);
 
         //Menu
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class Simulation extends World {
             String input = scanner.next();
             switch (input) {
                 case "1":
-                    System.out.println("Hello World");
+                    status(size, hawk_percent, resource, loss);
                     break;
                 case "2":
                     System.out.println("Hello World");
@@ -77,7 +77,5 @@ public class Simulation extends World {
                     break;
             }
         }
-
-
     }
 }

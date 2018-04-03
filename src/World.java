@@ -25,12 +25,14 @@ public class World {
         double hawks = size * hawk_percentage;
         double doves = size - hawks;
 
+        /*
         System.out.println("---------------------------------------");
         System.out.println("Hawk Percent " + hawk_percentage);
         System.out.println("Total Population " + size);
         System.out.println("Hawks "  + hawks);
         System.out.println("Doves " + doves);
         System.out.println("---------------------------------------");
+        */
 
         //Create all birds and set their id numbers
         int hawk_count = (int)hawks;
@@ -49,24 +51,41 @@ public class World {
         return birds;
     }
 
-    //TODO: Make sure the two birds chosen are alive
-    //TODO: Make sure the two birds are not the same
+
+    //Just pass in an array of bird objects and it will check if there are more then 2 alive
+    public static boolean is_Alive(Bird[] birds){
+        boolean answer = true;
+        int count = 0;
+        for (int bird = 0 ; bird < birds.length; bird++){
+            if (birds[bird].alive == 1){count += 1; }
+        }
+        if (count < 2){ answer = false; }
+        return answer;
+    }
+
+    //Todo: Check and see if at least 2 are alive
+    //Todo: If all birds are dead of if 1 is alive mention it somehow
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
         Random random = new Random();
         int min = 0;
         int max = size - 1;
-
         int num1 = random.nextInt(max - min) + min;
         int num2 = random.nextInt(max - min) + min;
 
-        if (num1 == num2){num2 = random.nextInt(max - min) + min;}
+        //Make sure we always have different numbers
+        while (num1 == num2){num2 = random.nextInt(max - min) + min;}
 
-        //System.out.println(num1);
-        //System.out.println(num2);
-        chosen[0] = birds[num1];
-        chosen[1] = birds[num2];
-
+        //Check to see if there are more then 2 birds alive
+        if (is_Alive(birds)) {
+            //Make sure our 2 chosen birds are alive
+            while (birds[num1].alive == 0 || birds[num2].alive == 0) {
+                num1 = random.nextInt(max - min) + min;
+                num2 = random.nextInt(max - min) + min;
+            }
+            chosen[0] = birds[num1];
+            chosen[1] = birds[num2];
+        }
         return chosen;
     }
 
@@ -79,14 +98,8 @@ public class World {
         return encounter;
     }
 
-    //TODO: Create check function to see if 2 alive birds are available otherwise throw done
-    //Just pass in an array of bird objects and it will check if there are more then 2 alive
-    public static boolean is_Alive(Bird[] birds){
-        return true;
-    }
 
     //TODO: Setup the menu bars except the running ones and step
-    //TODO: Make sure that the prompt bar continues to show up
     public static void menu(String[] args){
         System.out.println("===============MENU=============");
         System.out.println("1 ) Starting Stats");
@@ -100,6 +113,8 @@ public class World {
         System.out.println("================================");
     }
 
-    //TODO: Create the loop that prompts
-    // The prompt should continue until the exit case
+    public static void status(int population, int hawks_percentage, int resource, int loss){
+        System.out.println("Stuff");
+    }
+
 }

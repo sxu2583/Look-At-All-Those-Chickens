@@ -28,6 +28,6 @@ public class Bird extends World {
 
     //Just a test
     public void tweet(){
-        System.out.println("BAAAAKAAAWWHH");
+        System.out.println("TWEET");
     }
 }
