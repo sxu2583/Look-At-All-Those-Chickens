@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Hawk_Dove_Functions {
+public class World {
     public static int hawks_population_default = 20;
     public static int resource_default = 50;
     public static int loss_default = 100;
@@ -98,6 +98,8 @@ public class Hawk_Dove_Functions {
         System.out.println("7 ) Step through interactions 'Stop' to return to menu");
         System.out.println("8 ) Quit");
         System.out.println("================================");
-        System.out.println(">");
     }
+
+    //TODO: Create the loop that prompts
+    // The prompt should continue until the exit case
 }

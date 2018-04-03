@@ -2,9 +2,9 @@
 @Author:Shihab Uddin
  */
 
-import java.awt.*;
+import java.util.Scanner;
 
-public class Simulation extends Hawk_Dove_Functions {
+public class Simulation extends World {
     public static void main(String[] args){
         //Check error cases for arguments
         argumentsChecker(args);
@@ -40,10 +40,44 @@ public class Simulation extends Hawk_Dove_Functions {
         System.out.println(interaction[0].strategy + " " + interaction[0].id_number);
         System.out.println(interaction[1].strategy + " " + interaction[1].id_number);
 
-
         //Conduct the strategies
 
         //Menu
+        Scanner scanner = new Scanner(System.in);
         menu(args);
+        boolean play_game  = true;
+        while (play_game) {
+            System.out.print(">");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    System.out.println("Hello World");
+                    break;
+                case "2":
+                    System.out.println("Hello World");
+                    break;
+                case "3":
+                    System.out.println("Hello World");
+                    break;
+                case "4":
+                    System.out.println("Hello World");
+                    break;
+                case "5":
+                    System.out.println("Hello World");
+                    break;
+                case "6":
+                    System.out.println("Hello World");
+                    break;
+                case "7":
+                    System.out.println("Hello World");
+                    break;
+                case "8":
+                    play_game = false;
+                    System.out.println("Simulation Over");
+                    break;
+            }
+        }
+
+
     }
 }

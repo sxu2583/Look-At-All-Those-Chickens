@@ -1,4 +1,4 @@
-public class Bird extends Hawk_Dove_Functions {
+public class Bird extends World {
     String strategy;
     int resource;
     int alive;
@@ -30,5 +30,4 @@ public class Bird extends Hawk_Dove_Functions {
     public void tweet(){
         System.out.println("BAAAAKAAAWWHH");
     }
-
 }
