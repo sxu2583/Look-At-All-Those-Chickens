@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Hawk_Dove_Functions {
     public static int hawks_population_default = 20;
@@ -12,7 +13,6 @@ public class Hawk_Dove_Functions {
             System.err.println("Usage: ./project02 popSize [percentHawks] [resourceAmt] [costHawk-Bird]");
             System.exit(0);
         }
-        System.out.println("Arguments check out");
     }
 
     //TODO: Make sure hawk values like 1.5 get rounded down
@@ -54,9 +54,36 @@ public class Hawk_Dove_Functions {
         System.out.println("Here's where menu goes");
     }
 
-    //TODO: Create function that actually runs through a sim; test with dove/dove
-    public static void fight(){
-        System.out.println("Simulation started");
+    //TODO: Make sure the two birds chosen are alive
+    //TODO: Make sure the two birds are not the same
+    public static Bird[] random_Pick(Bird[] birds, int size){
+        Bird[] chosen = new Bird[2];
+        Random random = new Random();
+        int min = 0;
+        int max = size - 1;
+
+        int num1 = random.nextInt(max - min) + min;
+        int num2 = random.nextInt(max - min) + min;
+
+        if (num1 == num2){num2 = random.nextInt(max - min) + min;}
+
+        //System.out.println(num1);
+        //System.out.println(num2);
+        chosen[0] = birds[num1];
+        chosen[1] = birds[num2];
+
+        return chosen;
     }
+
+    //TODO: Create function that actually runs through a sim; test with dove/dove
+    //Make sure to do the fight and then save the new data into the encounter
+    //and make a list of lists of encounters
+    public static Bird[] fight(Bird[] birds, int resource_amount){
+        Bird[] encounter  = new Bird[2];
+        System.out.println("Simulation started");
+        return encounter;
+    }
+
+    //TODO: Create check function to see if 2 alive birds are available otherwise throw done
 
 }
