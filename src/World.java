@@ -137,7 +137,9 @@ public class World {
         Bird[] all_birds = birds;
         Scanner scanner = new Scanner(System.in);
 
-        //todo: make sure interactions works before the while
+        //todo: maybe use a do while instead of a while
+        //todo: Get rid of print wrong print statements
+        //todo: move the encounter increment to the top
         System.out.println("Interaction done");
         while (true) {
             String input = scanner.nextLine();
@@ -157,6 +159,12 @@ public class World {
             //If both birds are doves
             if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("dove")){
                 System.out.println("Two Doves");
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter +"\n" +
+                        "Individual " + bird_pair[0].id_number + ": Dove\n" +
+                        "Individual " + bird_pair[1].id_number + ": Dove\n" +
+                        "Dove/Dove: Dove: +25\tDove: +25\n" +
+                        "Individual 3=25\t        Individual 7=25");
             }
 
             //If one hawk and one dove
@@ -170,6 +178,7 @@ public class World {
             }
 
             //If both birds are hawks
+            //They automatically get afflicted the loss amount alongside the amount they win
             if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("hawk")){
                 System.out.println("Two hawks");
             }
