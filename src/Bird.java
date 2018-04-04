@@ -15,7 +15,7 @@ public class Bird extends World {
 
     //Allows our objects to update their values
     public void update_Resource(int value){
-        resource = value;
+        resource += value;
     }
 
     //Kills a bird

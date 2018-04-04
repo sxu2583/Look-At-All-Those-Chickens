@@ -138,33 +138,39 @@ public class World {
         Scanner scanner = new Scanner(System.in);
 
         //todo: maybe use a do while instead of a while
-        //todo: Get rid of print wrong print statements
-        //todo: move the encounter increment to the top
-        System.out.println("Interaction done");
+        System.out.println("Interaction start");
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("Stop")){
                 break;
             }
-
             Bird[] bird_pair = random_Pick(birds, size);
             if (bird_pair == null) {
                 System.out.println("Not enough Alive birds to continue");
                 break;
             }
 
-            //Print out the encounter number
-            System.out.println("Encounter " + bird_pair[0].encounter);
+            //Increment encounter of all birds by 1
+            all_birds = update_encounter(all_birds);
 
             //If both birds are doves
             if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("dove")){
+                int resource_split = resource_amount / 2;
+                bird_pair[0].update_Resource(resource_split);
+                bird_pair[1].update_Resource(resource_split);
+
                 System.out.println("Two Doves");
                 System.out.println("" +
                         "Encounter: " + bird_pair[0].encounter +"\n" +
                         "Individual " + bird_pair[0].id_number + ": Dove\n" +
                         "Individual " + bird_pair[1].id_number + ": Dove\n" +
-                        "Dove/Dove: Dove: +25\tDove: +25\n" +
-                        "Individual 3=25\t        Individual 7=25");
+                        "Dove/Dove: Dove: +" + resource_split + "\tDove: +" + resource_split + "\n" +
+                        "Individual "+ bird_pair[0].id_number +"="+ bird_pair[0].resource +"\t        " +
+                        "Individual "+ bird_pair[1].id_number +"="+ bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
             }
 
             //If one hawk and one dove
@@ -183,8 +189,6 @@ public class World {
                 System.out.println("Two hawks");
             }
 
-            //Increment encounter of all birds by 1
-            all_birds = update_encounter(all_birds);
         }
         return all_birds;
     }
