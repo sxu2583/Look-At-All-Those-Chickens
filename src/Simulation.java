@@ -20,7 +20,7 @@ public class Simulation extends World {
         int size = Integer.parseInt(args[0]);
 
         //Set the hawk percent if arg is not used
-        int hawk_percent = -1;
+        int hawk_percent = hawks_population_default;
         if (args.length >= 2){ hawk_percent = Integer.parseInt(args[1]); }
         int resource = resource_default;
         if (args.length >= 3){ resource = Integer.parseInt(args[2]); }
@@ -29,6 +29,7 @@ public class Simulation extends World {
 
         //Generate all the birds
         Bird[] all_birds = generate_population(size, hawk_percent);
+
         int hawk_count = 0;
         for (int bird = 0; bird < all_birds.length; bird++){
             if (all_birds[bird].strategy.equals("hawk")){
@@ -36,13 +37,18 @@ public class Simulation extends World {
             }
         }
 
+        //Need to update the percent value used after rounding
+        float updated_hawks_percent = (hawk_count / (float)size) * 100;
+        hawk_percent = (int)updated_hawks_percent;
+
+
         //Choosing the birds has been set
         Bird[] bird_pair;
         bird_pair = random_Pick(all_birds, size);
-
         System.out.println("The Two Birds Chosen");
         System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive);
         System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive);
+
 
         //Menu
         Scanner scanner = new Scanner(System.in);

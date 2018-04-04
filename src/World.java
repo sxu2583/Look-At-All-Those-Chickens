@@ -18,7 +18,7 @@ public class World {
     public static Bird[] generate_population(int size, int percentage){
         //Use default
         double hawk_percentage = percentage / 100.0;
-        if (percentage == -1){ hawk_percentage = hawks_population_default / 100.0; }
+        //if (percentage == -1){ hawk_percentage = hawks_population_default / 100.0; }
 
         Bird[] birds = new Bird[size];
         double hawks = Math.floor(size * hawk_percentage);
@@ -68,20 +68,20 @@ public class World {
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
         Random random = new Random();
+
         int min = 0;
-        int max = size - 1;
-        int num1 = random.nextInt(max - min) + min;
-        int num2 = random.nextInt(max - min) + min;
+        int num1 = random.nextInt(size - min) + min;
+        int num2 = random.nextInt(size - min) + min;
 
         //Make sure we always have different numbers
-        while (num1 == num2){num2 = random.nextInt(max - min) + min;}
+        while (num1 == num2){num2 = random.nextInt(size - min) + min;}
 
         //Check to see if there are more then 2 birds alive
         if (is_Alive(birds)) {
             //Make sure our 2 chosen birds are alive
             while (birds[num1].alive == 0 || birds[num2].alive == 0) {
-                num1 = random.nextInt(max - min) + min;
-                num2 = random.nextInt(max - min) + min;
+                num1 = random.nextInt(size - min) + min;
+                num2 = random.nextInt(size - min) + min;
             }
             chosen[0] = birds[num1];
             chosen[1] = birds[num2];
@@ -103,15 +103,13 @@ public class World {
     }
 
     public static void status(int population, int hawks_percentage, int hawk_count, int resource, int loss){
-        int real_hawk_percent = hawks_percentage;
-        if (hawks_percentage == -1){real_hawk_percent = hawks_population_default;}
 
         System.out.println("" +
                 "Population size: " + population + "\n" +
-                "Percentage of Hawks: " + real_hawk_percent + "%\n" +
+                "Percentage of Hawks: " + hawks_percentage + "%\n" +
                 "Number of Hawks: " + hawk_count +"\n" +
                 "\n" +
-                "Percentage of Doves: " + (100 - real_hawk_percent) + "%\n" +
+                "Percentage of Doves: " + (100 - hawks_percentage) + "%\n" +
                 "Number of Doves: " + (population - hawk_count) + "\n" +
                 "\n" +
                 "Each resource is worth: " + resource + "\n" +
@@ -121,7 +119,7 @@ public class World {
     //TODO: Create function that actually runs through a sim; test with dove/dove
     //Make sure to do the fight and then save the new data into the encounter
     //and make a list of lists of encounters
-    public static Bird[] fight(Bird[] birds, int resource_amount){
+    public static Bird[] interaction(Bird[] birds, int resource_amount){
         Bird[] encounter  = new Bird[2];
         System.out.println("Simulation started");
         return encounter;
