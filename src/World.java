@@ -15,24 +15,23 @@ public class World {
         }
     }
 
-    //TODO: Make sure hawk values like 1.5 get rounded down
     public static Bird[] generate_population(int size, int percentage){
         //Use default
-        double hawk_percentage = percentage;
+        double hawk_percentage = percentage / 100.0;
         if (percentage == -1){ hawk_percentage = hawks_population_default / 100.0; }
 
         Bird[] birds = new Bird[size];
-        double hawks = size * hawk_percentage;
+        double hawks = Math.floor(size * hawk_percentage);
         double doves = size - hawks;
 
-        /*
+
         System.out.println("---------------------------------------");
         System.out.println("Hawk Percent " + hawk_percentage);
         System.out.println("Total Population " + size);
         System.out.println("Hawks "  + hawks);
         System.out.println("Doves " + doves);
         System.out.println("---------------------------------------");
-        */
+
 
         //Create all birds and set their id numbers
         int hawk_count = (int)hawks;
@@ -52,6 +51,7 @@ public class World {
     }
 
 
+    //TODO: Return an array of all the alive ones
     //Just pass in an array of bird objects and it will check if there are more then 2 alive
     public static boolean is_Alive(Bird[] birds){
         boolean answer = true;
@@ -89,18 +89,7 @@ public class World {
         return chosen;
     }
 
-    //TODO: Create function that actually runs through a sim; test with dove/dove
-    //Make sure to do the fight and then save the new data into the encounter
-    //and make a list of lists of encounters
-    public static Bird[] fight(Bird[] birds, int resource_amount){
-        Bird[] encounter  = new Bird[2];
-        System.out.println("Simulation started");
-        return encounter;
-    }
-
-
-    //TODO: Setup the menu bars except the running ones and step
-    public static void menu(String[] args){
+    public static void menu(){
         System.out.println("===============MENU=============");
         System.out.println("1 ) Starting Stats");
         System.out.println("2 ) Display Individuals and Points");
@@ -113,8 +102,30 @@ public class World {
         System.out.println("================================");
     }
 
-    public static void status(int population, int hawks_percentage, int resource, int loss){
-        System.out.println("Stuff");
+    public static void status(int population, int hawks_percentage, int hawk_count, int resource, int loss){
+        int real_hawk_percent = hawks_percentage;
+        if (hawks_percentage == -1){real_hawk_percent = hawks_population_default;}
+
+        System.out.println("" +
+                "Population size: " + population + "\n" +
+                "Percentage of Hawks: " + real_hawk_percent + "%\n" +
+                "Number of Hawks: " + hawk_count +"\n" +
+                "\n" +
+                "Percentage of Doves: " + (100 - real_hawk_percent) + "%\n" +
+                "Number of Doves: " + (population - hawk_count) + "\n" +
+                "\n" +
+                "Each resource is worth: " + resource + "\n" +
+                "Cost of Hawk-Hawk interaction: " + loss);
     }
+
+    //TODO: Create function that actually runs through a sim; test with dove/dove
+    //Make sure to do the fight and then save the new data into the encounter
+    //and make a list of lists of encounters
+    public static Bird[] fight(Bird[] birds, int resource_amount){
+        Bird[] encounter  = new Bird[2];
+        System.out.println("Simulation started");
+        return encounter;
+    }
+
 
 }
