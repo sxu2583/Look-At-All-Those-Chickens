@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -63,7 +61,6 @@ public class World {
         return answer;
     }
 
-    //TODO: Return an array of all the alive ones
     public static int how_many_alive(Bird[] birds){
         int count = 0;
         for (int bird = 0; bird < birds.length; bird++){
@@ -74,8 +71,6 @@ public class World {
         return count;
     }
 
-    //Todo: Check and see if at least 2 are alive
-    //Todo: If all birds are dead of if 1 is alive mention it somehow
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
         Random random = new Random();
@@ -130,16 +125,19 @@ public class World {
                 "Cost of Hawk-Hawk interaction: " + loss);
     }
 
-    //TODO: Create function that actually runs through a sim; test with dove/dove
-    public static Bird[] interaction(Bird[] birds, int resource_amount, int loss, int size){
-        //Pair is picked out and put into this function
-        //Function now does the logic and updates stats of birds used
-        //Return a list of the new updated birds so that the original set can be updated
+    public static Bird[] update_encounter(Bird[] birds){
+        for (int bird = 0; bird < birds.length; bird++){
+            birds[bird].update_encounter();
+        }
+        return birds;
+    }
 
-        System.out.println("Simulation started");
+
+    public static Bird[] interaction(Bird[] birds, int resource_amount, int loss, int size){
         Bird[] all_birds = birds;
         Scanner scanner = new Scanner(System.in);
 
+        //todo: make sure interactions works before the while
         System.out.println("Interaction done");
         while (true) {
             String input = scanner.nextLine();
@@ -147,19 +145,37 @@ public class World {
                 break;
             }
 
-            Bird[] encounter_pair = random_Pick(birds, size);
-            if (encounter_pair == null) {
+            Bird[] bird_pair = random_Pick(birds, size);
+            if (bird_pair == null) {
                 System.out.println("Not enough Alive birds to continue");
+                break;
             }
-            System.out.println("Interaction done");
+
+            //Print out the encounter number
+            System.out.println("Encounter " + bird_pair[0].encounter);
+
             //If both birds are doves
+            if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("dove")){
+                System.out.println("Two Doves");
+            }
 
             //If one hawk and one dove
+            if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("dove")){
+                System.out.println("One hawk and one dove");
+            }
 
             //If one dove and one hawk
+            if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("hawk")){
+                System.out.println("One dove and one hawk");
+            }
 
             //If both birds are hawks
+            if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("hawk")){
+                System.out.println("Two hawks");
+            }
 
+            //Increment encounter of all birds by 1
+            all_birds = update_encounter(all_birds);
         }
         return all_birds;
     }

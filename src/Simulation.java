@@ -47,8 +47,8 @@ public class Simulation extends World {
         Bird[] bird_pair;
         bird_pair = random_Pick(all_birds, size);
         System.out.println("The Two Birds Chosen");
-        System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive);
-        System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive);
+        System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive +" "+ bird_pair[0].encounter);
+        System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive + " " + bird_pair[1].encounter);
 
 
         //Menu
