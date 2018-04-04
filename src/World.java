@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class World {
     public static int hawks_population_default = 20;
@@ -51,7 +52,6 @@ public class World {
     }
 
 
-    //TODO: Return an array of all the alive ones
     //Just pass in an array of bird objects and it will check if there are more then 2 alive
     public static boolean is_Alive(Bird[] birds){
         boolean answer = true;
@@ -61,6 +61,17 @@ public class World {
         }
         if (count < 2){ answer = false; }
         return answer;
+    }
+
+    //TODO: Return an array of all the alive ones
+    public static int how_many_alive(Bird[] birds){
+        int count = 0;
+        for (int bird = 0; bird < birds.length; bird++){
+            if (birds[bird].alive == 1){
+                count += 1;
+            }
+        }
+        return count;
     }
 
     //Todo: Check and see if at least 2 are alive
@@ -77,7 +88,7 @@ public class World {
         while (num1 == num2){num2 = random.nextInt(size - min) + min;}
 
         //Check to see if there are more then 2 birds alive
-        if (is_Alive(birds)) {
+        if (how_many_alive(birds) > 2) {
             //Make sure our 2 chosen birds are alive
             while (birds[num1].alive == 0 || birds[num2].alive == 0) {
                 num1 = random.nextInt(size - min) + min;
@@ -85,6 +96,9 @@ public class World {
             }
             chosen[0] = birds[num1];
             chosen[1] = birds[num2];
+        } else {
+            //All dead or one alive
+            chosen = null;
         }
         return chosen;
     }
@@ -117,13 +131,36 @@ public class World {
     }
 
     //TODO: Create function that actually runs through a sim; test with dove/dove
-    //Make sure to do the fight and then save the new data into the encounter
-    //and make a list of lists of encounters
-    public static Bird[] interaction(Bird[] birds, int resource_amount){
-        Bird[] encounter  = new Bird[2];
+    public static Bird[] interaction(Bird[] birds, int resource_amount, int loss, int size){
+        //Pair is picked out and put into this function
+        //Function now does the logic and updates stats of birds used
+        //Return a list of the new updated birds so that the original set can be updated
+
         System.out.println("Simulation started");
-        return encounter;
+        Bird[] all_birds = birds;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Interaction done");
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("Stop")){
+                break;
+            }
+
+            Bird[] encounter_pair = random_Pick(birds, size);
+            if (encounter_pair == null) {
+                System.out.println("Not enough Alive birds to continue");
+            }
+            System.out.println("Interaction done");
+            //If both birds are doves
+
+            //If one hawk and one dove
+
+            //If one dove and one hawk
+
+            //If both birds are hawks
+
+        }
+        return all_birds;
     }
-
-
 }

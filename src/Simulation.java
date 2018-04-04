@@ -30,6 +30,7 @@ public class Simulation extends World {
         //Generate all the birds
         Bird[] all_birds = generate_population(size, hawk_percent);
 
+        //Count how many hawks
         int hawk_count = 0;
         for (int bird = 0; bird < all_birds.length; bird++){
             if (all_birds[bird].strategy.equals("hawk")){
@@ -52,9 +53,10 @@ public class Simulation extends World {
 
         //Menu
         Scanner scanner = new Scanner(System.in);
-        menu();
         boolean play_game  = true;
+        menu();
         while (play_game) {
+            //menu();
             System.out.print(">");
             String input = scanner.next();
             switch (input) {
@@ -77,11 +79,14 @@ public class Simulation extends World {
                     System.out.println("Hello World");
                     break;
                 case "7":
-                    System.out.println("Hello World");
+                    all_birds = interaction(all_birds,resource, loss, size);
                     break;
                 case "8":
                     play_game = false;
                     System.out.println("Simulation Over");
+                    break;
+                default:
+                    menu();
                     break;
             }
         }
