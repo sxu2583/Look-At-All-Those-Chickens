@@ -108,6 +108,7 @@ public class World {
     }
 
     public static void menu(){
+        System.out.println();
         System.out.println("===============MENU=============");
         System.out.println("1 ) Starting Stats");
         System.out.println("2 ) Display Individuals and Points");
@@ -186,12 +187,40 @@ public class World {
 
             //If one hawk and one dove
             if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("dove")){
+                bird_pair[0].update_Resource(resource_amount);
+                bird_pair[1].update_Resource(0);
+
                 System.out.println("One hawk and one dove");
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter +"\n" +
+                        "Individual " + bird_pair[0].id_number + ": Hawk\n" +
+                        "Individual " + bird_pair[1].id_number + ": Dove\n" +
+                        "Hawk/Dove: Hawk: +" + resource_amount + "\tDove: +0 \n" +
+                        "Individual "+ bird_pair[0].id_number +"="+ bird_pair[0].resource +"\t        " +
+                        "Individual "+ bird_pair[1].id_number +"="+ bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
             }
 
             //If one dove and one hawk
             if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("hawk")){
+                bird_pair[0].update_Resource(0);
+                bird_pair[1].update_Resource(resource_amount);
+
                 System.out.println("One dove and one hawk");
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter +"\n" +
+                        "Individual " + bird_pair[0].id_number + ": Dove\n" +
+                        "Individual " + bird_pair[1].id_number + ": Hawk\n" +
+                        "Dove/Hawk: Dove: +0" + "\tHawk: +"+ resource_amount+" \n" +
+                        "Individual "+ bird_pair[0].id_number +"="+ bird_pair[0].resource +"\t        " +
+                        "Individual "+ bird_pair[1].id_number +"="+ bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
             }
 
             //If both birds are hawks
