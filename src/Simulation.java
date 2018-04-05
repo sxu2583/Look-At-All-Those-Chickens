@@ -42,7 +42,6 @@ public class Simulation extends World {
         float updated_hawks_percent = (hawk_count / (float)size) * 100;
         hawk_percent = (int)updated_hawks_percent;
 
-
         //Menu
         Scanner scanner = new Scanner(System.in);
         boolean play_game  = true;
