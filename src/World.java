@@ -23,14 +23,14 @@ public class World {
         double hawks = Math.floor(size * hawk_percentage);
         double doves = size - hawks;
 
-
+        /*
         System.out.println("---------------------------------------");
         System.out.println("Hawk Percent " + hawk_percentage);
         System.out.println("Total Population " + size);
         System.out.println("Hawks "  + hawks);
         System.out.println("Doves " + doves);
         System.out.println("---------------------------------------");
-
+        */
 
         //Create all birds and set their id numbers
         int hawk_count = (int)hawks;
@@ -152,7 +152,8 @@ public class World {
         Scanner scanner = new Scanner(System.in);
 
         //todo: maybe use a do while instead of a while
-        System.out.println("Interaction start");
+        //todo: When done set the menu to show up
+        System.out.println("Interaction start (Press Enter to Step)");
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("Stop")){ break;}
@@ -224,12 +225,60 @@ public class World {
             }
 
             //If both birds are hawks
-            //They automatically get afflicted the loss amount alongside the amount they win
             if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("hawk")){
-                System.out.println("Two hawks");
-            }
 
+                //Give first hawk the resources
+                bird_pair[0].update_Resource(resource_amount);
+                bird_pair[1].update_Resource(0);
+
+                //inflict loss
+                bird_pair[0].lose_Resource(loss);
+                bird_pair[1].lose_Resource(loss);
+
+                //To account for the plus minus symbol
+                String hawk_result;
+                if ((resource_amount - loss) > 0){
+                    hawk_result = "+" + (resource_amount - loss);
+                }else if ((resource_amount - loss) < 0) {
+                    hawk_result = Integer.toString(resource_amount -loss);
+                }else {hawk_result = "0";}
+
+                System.out.println("Two hawks");
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter +"\n" +
+                        "Individual " + bird_pair[0].id_number + ": Hawk\n" +
+                        "Individual " + bird_pair[1].id_number + ": Hawk\n" +
+                        "Hawk/Hawk: Hawk: "+ hawk_result + "\tHawk: -"+ loss);
+
+                //Check if Hawks died
+                if (bird_pair[0].resource < 0){
+                    bird_pair[0].died();
+                    System.out.print("Hawk one has died!");
+                }
+
+                if (bird_pair[1].resource < 0){
+                    bird_pair[1].died();
+                    System.out.println("\nHawk two has died!");
+                }
+
+                System.out.print(
+                        "Individual "+ bird_pair[0].id_number +"="+ bird_pair[0].resource +"\t    " +
+                        "Individual "+ bird_pair[1].id_number +"="+ bird_pair[1].resource + "\n");
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
+            }
         }
         return all_birds;
+    }
+
+
+    public static void display_individuals(Bird[] birds){
+        for (int bird = 0; bird < birds.length; bird++){
+            System.out.println("Individual[" + birds[bird].id_number + "]=" +
+                    birds[bird].strategy + ":" + birds[bird].resource);
+        }
+        System.out.println("Living:" + how_many_alive(birds));
     }
 }

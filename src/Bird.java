@@ -18,6 +18,10 @@ public class Bird extends World {
         resource += value;
     }
 
+    public void lose_Resource(int value){
+        resource -= value;
+    }
+
     //Kills a bird
     public void died(){
         alive = 0;
