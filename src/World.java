@@ -148,12 +148,11 @@ public class World {
     }
 
 
+    //TODO: Take care of duplicate id's and dead animals being chosen
     public static Bird[] interaction(Bird[] birds, int resource_amount, int loss, int size){
         Bird[] all_birds = birds;
         Scanner scanner = new Scanner(System.in);
 
-        //todo: maybe use a do while instead of a while
-        //todo: When done set the menu to show up
         System.out.println("Interaction start (Press Enter to Step)");
         while (true) {
             String input = scanner.nextLine();
@@ -165,7 +164,6 @@ public class World {
                 break;
             }
 
-            //TODO: FIND THE REAL ISSUE SO YOU DONT NEED TO USE THIS ERROR
             if (bird_pair[0].id_number == bird_pair[1].id_number){
                 random_Pick(birds, size);
             }
@@ -179,7 +177,6 @@ public class World {
                 bird_pair[0].update_Resource(resource_split);
                 bird_pair[1].update_Resource(resource_split);
 
-                System.out.println("Two Doves");
                 System.out.println("" +
                         "Encounter: " + bird_pair[0].encounter +"\n" +
                         "Individual " + bird_pair[0].id_number + ": Dove\n" +
@@ -198,7 +195,6 @@ public class World {
                 bird_pair[0].update_Resource(resource_amount);
                 bird_pair[1].update_Resource(0);
 
-                System.out.println("One hawk and one dove");
                 System.out.println("" +
                         "Encounter: " + bird_pair[0].encounter +"\n" +
                         "Individual " + bird_pair[0].id_number + ": Hawk\n" +
@@ -217,7 +213,6 @@ public class World {
                 bird_pair[0].update_Resource(0);
                 bird_pair[1].update_Resource(resource_amount);
 
-                System.out.println("One dove and one hawk");
                 System.out.println("" +
                         "Encounter: " + bird_pair[0].encounter +"\n" +
                         "Individual " + bird_pair[0].id_number + ": Dove\n" +
@@ -250,7 +245,6 @@ public class World {
                     hawk_result = Integer.toString(resource_amount -loss);
                 }else {hawk_result = "0";}
 
-                System.out.println("Two hawks");
                 System.out.println("" +
                         "Encounter: " + bird_pair[0].encounter +"\n" +
                         "Individual " + bird_pair[0].id_number + ": Hawk\n" +
@@ -337,4 +331,130 @@ public class World {
         }
 
     }
+
+
+    //TODO: Fix Spacing
+    //TODO: Output only one interaction N times
+    public static Bird[] n_interactions(int N, Bird[] birds, int resource_amount, int loss, int size){
+        Bird[] all_birds = birds;
+        Bird[] bird_pair = random_Pick(birds, size);
+
+        for (int n = 0; n < N; n++) {
+
+            if (bird_pair == null) {
+                System.out.println("Not enough Alive birds to continue");
+                break;
+            }
+
+            //Increment encounter of all birds by 1
+            all_birds = update_encounter(all_birds);
+
+            //If both birds are doves
+            if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("dove")) {
+                int resource_split = resource_amount / 2;
+                bird_pair[0].update_Resource(resource_split);
+                bird_pair[1].update_Resource(resource_split);
+
+
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter + "\n" +
+                        "Individual " + bird_pair[0].id_number + ": Dove\n" +
+                        "Individual " + bird_pair[1].id_number + ": Dove\n" +
+                        "Dove/Dove: Dove: +" + resource_split + "\tDove: +" + resource_split + "\n" +
+                        "Individual " + bird_pair[0].id_number + "=" + bird_pair[0].resource + "\t        " +
+                        "Individual " + bird_pair[1].id_number + "=" + bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
+            }
+
+            //If one hawk and one dove
+            if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("dove")) {
+                bird_pair[0].update_Resource(resource_amount);
+                bird_pair[1].update_Resource(0);
+
+
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter + "\n" +
+                        "Individual " + bird_pair[0].id_number + ": Hawk\n" +
+                        "Individual " + bird_pair[1].id_number + ": Dove\n" +
+                        "Hawk/Dove: Hawk: +" + resource_amount + "\tDove: +0 \n" +
+                        "Individual " + bird_pair[0].id_number + "=" + bird_pair[0].resource + "\t        " +
+                        "Individual " + bird_pair[1].id_number + "=" + bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
+            }
+
+            //If one dove and one hawk
+            if (bird_pair[0].strategy.equals("dove") && bird_pair[1].strategy.equals("hawk")) {
+                bird_pair[0].update_Resource(0);
+                bird_pair[1].update_Resource(resource_amount);
+
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter + "\n" +
+                        "Individual " + bird_pair[0].id_number + ": Dove\n" +
+                        "Individual " + bird_pair[1].id_number + ": Hawk\n" +
+                        "Dove/Hawk: Dove: +0" + "\tHawk: +" + resource_amount + " \n" +
+                        "Individual " + bird_pair[0].id_number + "=" + bird_pair[0].resource + "\t        " +
+                        "Individual " + bird_pair[1].id_number + "=" + bird_pair[1].resource);
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
+            }
+
+            //If both birds are hawks
+            if (bird_pair[0].strategy.equals("hawk") && bird_pair[1].strategy.equals("hawk")) {
+
+                //Give first hawk the resources
+                bird_pair[0].update_Resource(resource_amount);
+                bird_pair[1].update_Resource(0);
+
+                //inflict loss
+                bird_pair[0].lose_Resource(loss);
+                bird_pair[1].lose_Resource(loss);
+
+                //To account for the plus minus symbol
+                String hawk_result;
+                if ((resource_amount - loss) > 0) {
+                    hawk_result = "+" + (resource_amount - loss);
+                } else if ((resource_amount - loss) < 0) {
+                    hawk_result = Integer.toString(resource_amount - loss);
+                } else {
+                    hawk_result = "0";
+                }
+
+                System.out.println("" +
+                        "Encounter: " + bird_pair[0].encounter + "\n" +
+                        "Individual " + bird_pair[0].id_number + ": Hawk\n" +
+                        "Individual " + bird_pair[1].id_number + ": Hawk\n" +
+                        "Hawk/Hawk: Hawk: " + hawk_result + "\tHawk: -" + loss);
+
+                //Check if Hawks died
+                if (bird_pair[0].resource < 0) {
+                    bird_pair[0].died();
+                    System.out.print("Hawk one has died!");
+                }
+
+                if (bird_pair[1].resource < 0) {
+                    bird_pair[1].died();
+                    System.out.println("\nHawk two has died!");
+                }
+
+                System.out.print(
+                        "Individual " + bird_pair[0].id_number + "=" + bird_pair[0].resource + "\t    " +
+                                "Individual " + bird_pair[1].id_number + "=" + bird_pair[1].resource + "\n");
+
+                //Add the two updated birds back to the pack
+                all_birds[bird_pair[0].id_number] = bird_pair[0];
+                all_birds[bird_pair[1].id_number] = bird_pair[1];
+            }
+        }
+        return all_birds;
+    }
+
+
 }

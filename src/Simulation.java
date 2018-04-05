@@ -46,9 +46,8 @@ public class Simulation extends World {
         //Menu
         Scanner scanner = new Scanner(System.in);
         boolean play_game  = true;
-        menu();
         while (play_game) {
-            //menu();
+            menu();
             System.out.print(">");
             String input = scanner.next();
             switch (input) {
@@ -62,13 +61,15 @@ public class Simulation extends World {
                     display_sorted(all_birds);
                     break;
                 case "4":
-                    System.out.println("Hello World");
+                    all_birds = n_interactions(1000, all_birds, resource, loss, size);
                     break;
                 case "5":
-                    System.out.println("Hello World");
+                    all_birds = n_interactions(10000, all_birds,resource, loss, size);
                     break;
                 case "6":
-                    System.out.println("Hello World");
+                    System.out.print("Enter Your Desired N Interactions: ");
+                    int N = scanner.nextInt();
+                    all_birds = n_interactions(N, all_birds, resource, loss, size);
                     break;
                 case "7":
                     all_birds = interaction(all_birds,resource, loss, size);
