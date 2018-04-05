@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68bc1bb7-faa8-4a26-83b8-d51a443dc567" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/LogicOfAnimalConflict/Simulation.class" afterPath="$PROJECT_DIR$/out/production/LogicOfAnimalConflict/Simulation.class" />
-      <change beforePath="$PROJECT_DIR$/src/Simulation.java" afterPath="$PROJECT_DIR$/src/Simulation.java" />
       <change beforePath="$PROJECT_DIR$/src/World.java" afterPath="$PROJECT_DIR$/src/World.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -55,8 +53,8 @@
       <file leaf-file-name="World.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="339" column="29" lean-forward="false" selection-start-line="339" selection-start-column="29" selection-end-line="339" selection-end-column="29" />
+            <state relative-caret-position="131">
+              <caret line="344" column="31" lean-forward="false" selection-start-line="344" selection-start-column="31" selection-end-line="344" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -377,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522915331337</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Everything Done - Just fixing small error cases">
+      <created>1522942933800</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1522942933800</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -431,7 +436,8 @@
     <MESSAGE value="All interactions work, all that needs to be done are inputs [3,4,5 and 6]" />
     <MESSAGE value="Sort is working" />
     <MESSAGE value="Strange Issue Found - sometimes two birds have same id" />
-    <option name="LAST_COMMIT_MESSAGE" value="Strange Issue Found - sometimes two birds have same id" />
+    <MESSAGE value="Everything Done - Just fixing small error cases" />
+    <option name="LAST_COMMIT_MESSAGE" value="Everything Done - Just fixing small error cases" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1011,8 +1017,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="339" column="29" lean-forward="false" selection-start-line="339" selection-start-column="29" selection-end-line="339" selection-end-column="29" />
+        <state relative-caret-position="131">
+          <caret line="344" column="31" lean-forward="false" selection-start-line="344" selection-start-column="31" selection-end-line="344" selection-end-column="31" />
           <folding />
         </state>
       </provider>

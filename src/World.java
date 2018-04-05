@@ -148,7 +148,7 @@ public class World {
     }
 
 
-    //TODO: Take care of duplicate id's and dead animals being chosen
+
     public static Bird[] interaction(Bird[] birds, int resource_amount, int loss, int size){
         Bird[] all_birds = birds;
         Scanner scanner = new Scanner(System.in);
@@ -159,13 +159,18 @@ public class World {
             if (input.equals("Stop")){ break;}
 
             Bird[] bird_pair = random_Pick(birds, size);
+
             if (bird_pair == null) {
                 System.out.println("Not enough Alive birds to continue");
                 break;
             }
 
-            if (bird_pair[0].id_number == bird_pair[1].id_number){
-                random_Pick(birds, size);
+            while (bird_pair[0].id_number == bird_pair[1].id_number){
+                bird_pair = random_Pick(birds, size);
+            }
+
+            while (bird_pair[0].alive == 0 || bird_pair[1].alive == 0){
+                bird_pair = random_Pick(birds, size);
             }
 
             //Increment encounter of all birds by 1
@@ -333,17 +338,24 @@ public class World {
     }
 
 
-    //TODO: Fix Spacing
-    //TODO: Output only one interaction N times
     public static Bird[] n_interactions(int N, Bird[] birds, int resource_amount, int loss, int size){
         Bird[] all_birds = birds;
-        Bird[] bird_pair = random_Pick(birds, size);
 
         for (int n = 0; n < N; n++) {
+            System.out.println();
+            Bird[] bird_pair = random_Pick(birds, size);
 
             if (bird_pair == null) {
                 System.out.println("Not enough Alive birds to continue");
                 break;
+            }
+
+            while (bird_pair[0].id_number == bird_pair[1].id_number){
+                bird_pair = random_Pick(birds, size);
+            }
+
+            while (bird_pair[0].alive == 0 || bird_pair[1].alive == 0){
+                bird_pair = random_Pick(birds, size);
             }
 
             //Increment encounter of all birds by 1
