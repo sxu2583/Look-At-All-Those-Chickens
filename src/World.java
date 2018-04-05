@@ -70,6 +70,7 @@ public class World {
         return count;
     }
 
+    //TODO: FIX SAME BIRD ISSUE
     //Make Sure Random Pick Can't Pick Two Same Birds
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
@@ -85,7 +86,7 @@ public class World {
         num2 = random.nextInt(size - min) + min;
 
         //Make sure we always have different numbers
-        if (size != 1) {
+        if (num1 == num2 && size != 1) {
             while (num1 == num2) {
                 num2 = random.nextInt(size - min) + min;
             }
@@ -163,6 +164,12 @@ public class World {
                 System.out.println("Not enough Alive birds to continue");
                 break;
             }
+
+            //TODO: FIND THE REAL ISSUE SO YOU DONT NEED TO USE THIS ERROR
+            if (bird_pair[0].id_number == bird_pair[1].id_number){
+                random_Pick(birds, size);
+            }
+
             //Increment encounter of all birds by 1
             all_birds = update_encounter(all_birds);
 
@@ -297,7 +304,6 @@ public class World {
     }
 
 
-    //TODO: Issue with sorting birds
     public static void display_sorted(Bird[] birds){
         Bird[] sorted_birds = new Bird[birds.length];
         Integer[] resource_amounts = new Integer[birds.length];
@@ -306,14 +312,6 @@ public class World {
         }
         //Sort resource array in descending order
         Arrays.sort(resource_amounts, Collections.reverseOrder());
-
-        /*
-        System.out.println("Before");
-        for (int bird = 0; bird < birds.length; bird++){
-            System.out.println(birds[bird].strategy + " "+ birds[bird].id_number + " " +
-                    "" + birds[bird].resource);
-        }
-        */
 
         ArrayList<Integer> checked = new ArrayList<>();
         for (int resource = 0; resource < resource_amounts.length; resource++){
@@ -325,15 +323,6 @@ public class World {
                 }
             }
         }
-
-        /*
-        System.out.println("-------------------------------------");
-        System.out.println("After");
-        for (int bird = 0; bird < birds.length; bird++){
-            System.out.println(sorted_birds[bird].strategy + " "+ sorted_birds[bird].id_number + " " +
-                    "" + sorted_birds[bird].resource);}
-        */
-
 
         //Display Sorted
         for (int bird = 0; bird < sorted_birds.length; bird++){
