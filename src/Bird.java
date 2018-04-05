@@ -9,7 +9,8 @@ public class Bird extends World {
         this.strategy = strategy;
         this.resource = 0;
         this.alive = 1;
-        this.id_number = 0;
+        //Changed from 0
+        this.id_number = -1;
         this.encounter = 0;
     }
 

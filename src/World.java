@@ -1,5 +1,4 @@
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class World {
     public static int hawks_population_default = 20;
@@ -71,6 +70,7 @@ public class World {
         return count;
     }
 
+    //Make Sure Random Pick Can't Pick Two Same Birds
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
         Random random = new Random();
@@ -276,9 +276,76 @@ public class World {
 
     public static void display_individuals(Bird[] birds){
         for (int bird = 0; bird < birds.length; bird++){
-            System.out.println("Individual[" + birds[bird].id_number + "]=" +
-                    birds[bird].strategy + ":" + birds[bird].resource);
+            System.out.print("Individual[" + birds[bird].id_number + "]=");
+
+            //Check Name
+            String strat;
+            if (birds[bird].strategy.equals("dove")){
+                strat = "Dove";
+            }else {
+                strat = "Hawk";
+            }
+
+            //Set as Dead
+            if (birds[bird].alive == 0){
+                strat = "DEAD";
+            }
+
+            System.out.print(strat + ":" + birds[bird].resource +"\n");
         }
         System.out.println("Living:" + how_many_alive(birds));
+    }
+
+
+    //TODO: Issue with sorting birds
+    public static void display_sorted(Bird[] birds){
+        Bird[] sorted_birds = new Bird[birds.length];
+        Integer[] resource_amounts = new Integer[birds.length];
+        for (int bird = 0; bird < birds.length; bird++){
+            resource_amounts[bird] = birds[bird].resource;
+        }
+        //Sort resource array in descending order
+        Arrays.sort(resource_amounts, Collections.reverseOrder());
+
+        /*
+        System.out.println("Before");
+        for (int bird = 0; bird < birds.length; bird++){
+            System.out.println(birds[bird].strategy + " "+ birds[bird].id_number + " " +
+                    "" + birds[bird].resource);
+        }
+        */
+
+        ArrayList<Integer> checked = new ArrayList<>();
+        for (int resource = 0; resource < resource_amounts.length; resource++){
+            for (int bird = 0; bird < birds.length; bird++){
+                if ((birds[bird].resource == resource_amounts[resource]) && !checked.contains(birds[bird].id_number)){
+                    sorted_birds[resource] = birds[bird];
+                    checked.add(birds[bird].id_number);
+                    break;
+                }
+            }
+        }
+
+        /*
+        System.out.println("-------------------------------------");
+        System.out.println("After");
+        for (int bird = 0; bird < birds.length; bird++){
+            System.out.println(sorted_birds[bird].strategy + " "+ sorted_birds[bird].id_number + " " +
+                    "" + sorted_birds[bird].resource);}
+        */
+
+
+        //Display Sorted
+        for (int bird = 0; bird < sorted_birds.length; bird++){
+            //Check Name
+            String strat;
+            if (sorted_birds[bird].strategy.equals("dove")){ strat = "Dove"; }
+            else { strat = "Hawk"; }
+
+            //Set as Dead
+            if (sorted_birds[bird].alive == 0){ strat = "DEAD"; }
+            System.out.print(strat + ":" + sorted_birds[bird].resource +"\n");
+        }
+
     }
 }

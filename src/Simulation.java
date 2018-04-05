@@ -59,7 +59,7 @@ public class Simulation extends World {
                     display_individuals(all_birds);
                     break;
                 case "3":
-                    System.out.println("Hello World");
+                    display_sorted(all_birds);
                     break;
                 case "4":
                     System.out.println("Hello World");
