@@ -74,16 +74,25 @@ public class World {
     public static Bird[] random_Pick(Bird[] birds, int size){
         Bird[] chosen = new Bird[2];
         Random random = new Random();
+        int min;
+        int num1;
+        int num2;
 
-        int min = 0;
-        int num1 = random.nextInt(size - min) + min;
-        int num2 = random.nextInt(size - min) + min;
+        if (size == 0){size = size + 1;}
+
+        min = 0;
+        num1 = random.nextInt(size - min) + min;
+        num2 = random.nextInt(size - min) + min;
 
         //Make sure we always have different numbers
-        while (num1 == num2){num2 = random.nextInt(size - min) + min;}
+        if (size != 1) {
+            while (num1 == num2) {
+                num2 = random.nextInt(size - min) + min;
+            }
+        }
 
         //Check to see if there are more then 2 birds alive
-        if (how_many_alive(birds) > 2) {
+        if (how_many_alive(birds) >= 2) {
             //Make sure our 2 chosen birds are alive
             while (birds[num1].alive == 0 || birds[num2].alive == 0) {
                 num1 = random.nextInt(size - min) + min;
@@ -113,12 +122,16 @@ public class World {
 
     public static void status(int population, int hawks_percentage, int hawk_count, int resource, int loss){
 
+        //Edge case handler
+        int dove_percentage = 100 - hawks_percentage;
+        if (population == 0){dove_percentage = 0;}
+
         System.out.println("" +
                 "Population size: " + population + "\n" +
                 "Percentage of Hawks: " + hawks_percentage + "%\n" +
                 "Number of Hawks: " + hawk_count +"\n" +
                 "\n" +
-                "Percentage of Doves: " + (100 - hawks_percentage) + "%\n" +
+                "Percentage of Doves: " + dove_percentage + "%\n" +
                 "Number of Doves: " + (population - hawk_count) + "\n" +
                 "\n" +
                 "Each resource is worth: " + resource + "\n" +
@@ -141,15 +154,13 @@ public class World {
         System.out.println("Interaction start");
         while (true) {
             String input = scanner.nextLine();
-            if (input.equals("Stop")){
-                break;
-            }
+            if (input.equals("Stop")){ break;}
+
             Bird[] bird_pair = random_Pick(birds, size);
             if (bird_pair == null) {
                 System.out.println("Not enough Alive birds to continue");
                 break;
             }
-
             //Increment encounter of all birds by 1
             all_birds = update_encounter(all_birds);
 

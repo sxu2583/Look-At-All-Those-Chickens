@@ -43,14 +43,17 @@ public class Simulation extends World {
         hawk_percent = (int)updated_hawks_percent;
 
 
+
         //Choosing the birds has been set
         Bird[] bird_pair;
         bird_pair = random_Pick(all_birds, size);
-        System.out.println("The Two Birds Chosen");
-        System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive +" "+ bird_pair[0].encounter);
-        System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive + " " + bird_pair[1].encounter);
+
+        //System.out.println("The Two Birds Chosen");
+        //System.out.println(bird_pair[0].strategy + " " + bird_pair[0].id_number + " " + bird_pair[0].alive +" "+ bird_pair[0].encounter);
+        //System.out.println(bird_pair[1].strategy + " " + bird_pair[1].id_number + " " + bird_pair[1].alive + " " + bird_pair[1].encounter);
 
 
+        //Todo: Check why it errors out on 1 and 2 birds
         //Menu
         Scanner scanner = new Scanner(System.in);
         boolean play_game  = true;
